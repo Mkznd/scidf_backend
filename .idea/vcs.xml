@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/internal-llm-retrieval-research" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/internal-llm-retrieval-research/technical_content_analysis" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/research" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/research/technical_content_analysis" vcs="Git" />
   </component>
 </project>
