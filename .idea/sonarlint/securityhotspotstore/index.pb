@@ -8,3 +8,17 @@
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 ;
 .gitmodules,7\4\7445606fbf8f3683cd42bdc54b05d7a0bc2dfc44
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+ƒ
+Sinternal-llm-retrieval-research/research_assistant/paper_retrieval/search_engine.py,2\6\265cff0ede140d6ff78399d9963a53a8ba150e06
+u
+Einternal-llm-retrieval-research/research_assistant/llm_tools/query.py,b\4\b420696c081a0240d86ff4dff8d4414c7e1857c5
+W
+'internal-llm-retrieval-research/init.py,1\2\12309623ce61fcb1b154fc9790911a7adb8f8f3b
+^
+.research/research_assistant/llm_tools/query.py,b\5\b54f56310613634c1373fed891036b10af06b67c
+c
+3research/research_assistant/models/open_ai_model.py,9\3\9379452b745854cc34b3f20c8a15c0bc2d5c79b4
+c
+3research/research_assistant/models/request_model.py,c\0\c0014969b0f2b88ea9aef34b9a0de539874d0cef
