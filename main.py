@@ -3,7 +3,7 @@ import sys
 from dotenv.main import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from research.research_assistant.llm_tools.query import refine_query
+from research.research_assistant.llm_tools.query import refine_query, create_subqueries
 import os
 
 load_dotenv()
@@ -26,6 +26,14 @@ async def main():
 
 
 @app.post("/refine")
-async def refine(search: str):
-    queries = refine_query(search)
+async def refine(query: str):
+    print(query)
+    queries = refine_query(query)
+    return queries
+
+
+@app.post("/subqueries")
+async def subqueries(query: str):
+    print(query)
+    queries = create_subqueries(query)
     return queries

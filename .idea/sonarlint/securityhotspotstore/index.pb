@@ -20,3 +20,17 @@ c
 3research/research_assistant/models/open_ai_model.py,9\3\9379452b745854cc34b3f20c8a15c0bc2d5c79b4
 c
 3research/research_assistant/models/request_model.py,c\0\c0014969b0f2b88ea9aef34b9a0de539874d0cef
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+y
+Iresearch/research_assistant/paper_retrieval/papers/paper_search_engine.py,2\6\26c7ec989b4318c1724b582de1d982c560deeaa5
+q
+Aresearch/research_assistant/paper_retrieval/papers/paper_utils.py,5\8\58fedc18e81ee96630024e213c3523eaae07bbf0
+k
+;research/research_assistant/paper_retrieval/papers/paper.py,c\c\cc46acda880a0d9b4f1a7f2097b3f1ed856e9588
+l
+<research/research_assistant/paper_retrieval/search_engine.py,5\c\5c528bbff2081ac22f8734b1b98674e10dc8e223
+d
+4research/research_assistant/paper_retrieval/types.py,3\5\350393705648c720e508148199bfab3252034eb5
+a
+1research/research_assistant/prompts/subqueries.py,6\7\67420c4c3f0547f0c347ecc71384b273cb76a907
