@@ -8,10 +8,6 @@
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 ;
 .gitmodules,7\4\7445606fbf8f3683cd42bdc54b05d7a0bc2dfc44
-ƒ
-Sinternal-llm-retrieval-research/research_assistant/paper_retrieval/search_engine.py,2\6\265cff0ede140d6ff78399d9963a53a8ba150e06
-u
-Einternal-llm-retrieval-research/research_assistant/llm_tools/query.py,b\4\b420696c081a0240d86ff4dff8d4414c7e1857c5
 S
 #research/research_assistant/main.py,5\c\5c9ca910917368b66728d59b539769a596b6a005
 ^
@@ -34,3 +30,21 @@ d
 4research/research_assistant/paper_retrieval/types.py,3\5\350393705648c720e508148199bfab3252034eb5
 a
 1research/research_assistant/prompts/subqueries.py,6\7\67420c4c3f0547f0c347ecc71384b273cb76a907
+m
+=research/research_assistant/paper_retrieval/authors/author.py,2\1\213c4b0f5723202c5240a2f8c530bc0fa5c1aa06
+s
+Cresearch/research_assistant/paper_retrieval/papers/sources/arxiv.py,3\5\357449d312c809eab611a48f13609b33b3e0c642
+|
+Lresearch/research_assistant/paper_retrieval/papers/sources/google_scholar.py,0\f\0f2880c0b141bf02c469086fa6ac3e974094cd86
+E
+models/QueryRefine.py,8\e\8e239607e8e20c84c3a2f28082f06a0b3483d4ee
+G
+models/SubqueryInput.py,c\6\c6ed9c9e368bbb53e31f392d7196b3900db62ba9
+E
+models/RefineInput.py,b\f\bf73814f1202a043f5a7019370ca1ce94ce882d6
+E
+models/SearchInput.py,c\4\c4f3fb9d79116f36eb14a959c73749b583e28dc2
+?
+models/Paper.py,5\8\58c2f27b02638331ec3c541536df651743d3bbd5
+B
+models/PaperDTO.py,0\4\040fed0b8770f93513ab9b640cfe85bbcd07c82c

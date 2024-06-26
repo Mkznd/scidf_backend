@@ -5,6 +5,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="versionSpecifier" value="Don't specify version" />
+  </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="a5f6f4e2-1385-46df-a226-5212aacd734a" />
   </component>
