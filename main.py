@@ -54,4 +54,10 @@ async def search(search_input: SearchInput) -> list[dict]:
         }
     )
     print(search_input.queries)
-    return [i.__dict__ for i in multisearch.search(search_input.queries, 5)]
+    return [i.__dict__ for i in multisearch.search(search_input.queries, search_input.article_no)]
+
+
+@app.post("/summary")
+async def summary(summary_input: SearchInput) -> list[dict]:
+    queries = create_subqueries(subquery_input.query)
+    return queries
