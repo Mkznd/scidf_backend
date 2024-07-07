@@ -58,6 +58,7 @@ async def subqueries(subquery_input: SubqueryInput):
 
 @app.post("/search")
 async def search(search_input: SearchInput) -> list[dict]:
+    print(search_input)
     papers = sort_papers(search_and_score_papers(search_input))
     return [jsonable_encoder(i) for i in papers]
 

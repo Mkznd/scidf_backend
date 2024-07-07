@@ -31,6 +31,7 @@ def search_and_score_papers(research_topic):
         tasks = {executor.submit(search_and_retrieve_papers, query, 10) for query in queries}
         papers_without_scores = [task.result() for task in tasks]
     papers_without_scores = [item for sublist in papers_without_scores for item in sublist]
+    print(papers_without_scores)
     papers_with_scores = score_papers(
         research_topic,
         papers_without_scores,
