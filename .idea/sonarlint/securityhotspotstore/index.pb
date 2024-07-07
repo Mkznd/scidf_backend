@@ -112,3 +112,19 @@ M
 models/PaperHighlightInput.py,2\f\2f917f350f6a139c0c3f7293a8332a6499c23c97
 C
 models/Highlight.py,2\6\26aff210d6e052395de2f28655aa97a2f7c82607
+Q
+!research/app/pages/sota_report.py,a\7\a75a7a8d35b78ed57d09127748b6cb1ac5391b34
+8
+setup.py,8\e\8e2edce0d507e1297474f25c00cae94258db38d8
+B
+research/README.md,6\0\601779a9946a30a49ab2e8d1571f6b2394168ed0
+]
+-research/technical_content_analysis/README.md,9\9\99e2ecb48e746189a5ca826cb00403bbec74f0a0
+B
+research/setup.cfg,a\8\a8d3c2153a30a2b55471685a87b31b76edf1c808
+I
+research/requirements.txt,8\f\8f821625c56cb9bb25d2f1e80491fba1499783a5
+n
+>research/research_assistant/paper_retrieval/papers/__init__.py,b\c\bc69e34c6a7f115fd1bf457ed8b2311683ff1d20
+W
+'research/research_assistant/__init__.py,5\4\547a24838c3c4d13426bc9972ad1247263283891

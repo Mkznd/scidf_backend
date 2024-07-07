@@ -1,10 +1,14 @@
-import asyncio
+from fastapi.encoders import jsonable_encoder
+
+from setup import setup
+
+setup()
+from research.app.components.search import sort_papers
 import json
-import sys
 import time
 from typing import Annotated, List, Any
 from fastapi import Response
-
+import os
 import requests
 from dotenv.main import load_dotenv
 from fastapi import FastAPI, Body
@@ -19,18 +23,15 @@ from models.SummaryInput import SummaryInput
 from models.SummaryResponse import SummaryResponse
 from models.PaperHighlightInput import PaperHighlightInput
 
-from multisearch import search_all
+from multisearch import search_and_score_papers
 from research.app.components.highlights import find_highlights
 from research.research_assistant.llm_tools.query import refine_query, create_subqueries
-from research.research_assistant.llm_tools.summarize import summarize
-import os
 from text_extractor import extract_text_from_pdf, extract_text_from_pdf_url
+from research.research_assistant.llm_tools.summarize import summarize
 from utils import flatten_list
 
 load_dotenv()
-os.add_dll_directory("C:/Windows/System32")
-os.add_dll_directory("C:/Windows/System")
-os.add_dll_directory("C:/Windows/SysWOW64")
+
 app = FastAPI()
 origins = ["*"]
 
@@ -57,13 +58,8 @@ async def subqueries(subquery_input: SubqueryInput):
 
 @app.post("/search")
 async def search(search_input: SearchInput) -> list[dict]:
-    start_time = time.time()
-    papers = list(set((flatten_list((search_all(search_input))))))
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Execution time for search: {execution_time} seconds")
-    print(papers)
-    return [i.__dict__ for i in papers]
+    papers = sort_papers(search_and_score_papers(search_input))
+    return [jsonable_encoder(i) for i in papers]
 
 
 @app.post("/summary")
@@ -71,9 +67,6 @@ async def summary(summary_input: SummaryInput) -> SummaryResponse:
     res = highlights.create_highlights(extract_text_from_pdf_url(summary_input.url))
     res = json.loads(res.encode("utf-8"))
     return SummaryResponse(summary=res["summary"], highlights=res["highlights"])
-
-
-# @app.post("/keypoints")
 
 
 @app.post("/paper_highlight")
