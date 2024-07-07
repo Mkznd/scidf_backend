@@ -1,3 +1,5 @@
 fastapi
 pydantic
+pymupdf
 python-dotenv
+requests

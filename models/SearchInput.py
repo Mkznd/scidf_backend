@@ -3,4 +3,4 @@ from pydantic import BaseModel
 
 class SearchInput(BaseModel):
     queries: list[str]
-    article_no: int = 10
+    top_k_per_source: int = 10
