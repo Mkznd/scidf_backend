@@ -1,13 +1,10 @@
 import os
+import time
 
 import requests
 from pymupdf import pymupdf
 
-
-def download_pdf(url, output_path):
-    response = requests.get(url)
-    with open(output_path, 'wb') as file:
-        file.write(response.content)
+from utils import download_pdf
 
 
 def extract_text_from_pdf(pdf_path):
@@ -16,9 +13,12 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 
-def extract_text_from_pdf_url(url):
-    pdf_path = "downloaded_file.pdf"
+def extract_text_from_pdf_url(url: str):
+    start = time.time()
+    pdf_path = f"./pdf/{url.replace('/', '_')}.pdf"
     download_pdf(url, pdf_path)
+    print(f"Downloaded PDF in {time.time() - start:.2f} seconds")
+    start = time.time()
     text = extract_text_from_pdf(pdf_path)
-    os.remove(pdf_path)
-    return text
+    print(f"Extracted text in {time.time() - start:.2f} seconds")
+    return text, pdf_path

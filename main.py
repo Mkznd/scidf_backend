@@ -1,5 +1,6 @@
 from fastapi.encoders import jsonable_encoder
 
+from db.database import Base, engine
 from setup import setup
 
 setup()
@@ -26,13 +27,14 @@ from models.PaperHighlightInput import PaperHighlightInput
 from multisearch import search_and_score_papers
 from research.app.components.highlights import find_highlights
 from research.research_assistant.llm_tools.query import refine_query, create_subqueries
-from text_extractor import extract_text_from_pdf, extract_text_from_pdf_url
+from text_extractor import extract_text_from_pdf, extract_text_from_pdf_url, download_pdf
 from research.research_assistant.llm_tools.summarize import summarize
-from utils import flatten_list
+from utils import flatten_list, generate_filename_from_url
 
 load_dotenv()
 
 app = FastAPI()
+Base.metadata.create_all(engine)
 origins = ["*"]
 
 app.add_middleware(
@@ -65,23 +67,47 @@ async def search(search_input: SearchInput) -> list[dict]:
 
 @app.post("/summary")
 async def summary(summary_input: SummaryInput) -> SummaryResponse:
-    res = highlights.create_highlights(extract_text_from_pdf_url(summary_input.url))
-    res = json.loads(res.encode("utf-8"))
-    return SummaryResponse(summary=res["summary"], highlights=res["highlights"])
+    print(summary_input.url)
+    text, pdf_path = extract_text_from_pdf_url(summary_input.url)
+    result_json = None
+    while not result_json:
+        try:
+            start = time.time()
+            res = highlights.create_highlights(text).encode("utf-8")
+            result_json = json.loads(res)
+            print(f"Time taken to generate highlights: {time.time() - start:.2f} seconds")
+        except Exception as e:
+            print(e)
+    return SummaryResponse(summary=result_json["summary"], highlights=result_json["highlights"])
 
 
 @app.post("/paper_highlight")
 def get_highlighted_paper(paper_highlight_input: PaperHighlightInput):
-    response = requests.get(paper_highlight_input.url)
-    filename_base = f"{round(time.time())}.pdf"
-    filename = f"./tmp/{filename_base}"
-    with open(filename, 'wb') as f:
-        f.write(response.content)
+    filename_base = f"{generate_filename_from_url(paper_highlight_input.url)}.pdf"
+    filepath = f"./pdf/{filename_base}"
+    highlighted_filepath = f"./pdf_highlighted/{filename_base}.pdf"
 
+    if os.path.exists(highlighted_filepath):
+        with open(highlighted_filepath, "rb") as f:
+            content = f.read()
+            return Response(content, media_type="application/pdf")
+    if not os.path.exists(filepath):
+        download_pdf(paper_highlight_input.url, filepath)
+
+    with open(filepath, "rb") as f:
+        start = time.time()
+        doc = highlight_pdf(filepath, paper_highlight_input.highlights)
+        doc.save(highlighted_filepath, deflate=True)
+        content = doc.tobytes()
+        doc.close()
+        print(f"Time taken to highlight paper: {time.time() - start:.2f} seconds")
+        return Response(content, media_type="application/pdf")
+
+
+def highlight_pdf(filename: str, highlights: List[str]):
     doc = pymupdf.open(filename)
     missed_highlights = []
-
-    for point in [i.excerpt.strip() for i in paper_highlight_input.highlights]:
+    for point in [i.strip() for i in highlights]:
         point_found = False
         for page in doc:
             found = page.search_for(
@@ -94,14 +120,6 @@ def get_highlighted_paper(paper_highlight_input: PaperHighlightInput):
                     annot.update()
         if not point_found:
             missed_highlights.append(point)
-
     if missed_highlights:
         print(f"Could not find the following excerpts: {missed_highlights}")
-
-    highlighted_filename = f"{filename_base}_highlighted.pdf"
-    doc.save(highlighted_filename, deflate=True)
-    content = doc.tobytes()
-    doc.close()
-    os.remove(filename)
-    os.remove(highlighted_filename)
-    return Response(content, media_type="application/pdf")
+    return doc
